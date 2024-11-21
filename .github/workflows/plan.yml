@@ -36,7 +36,6 @@ jobs:
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
-        continue-on-error: false    #format to the tf
 
       - name: Terraform Init
         id: init
@@ -52,7 +51,6 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
-        continue-on-error: false
 
       - uses: actions/github-script@v6
         env:
@@ -90,5 +88,3 @@ jobs:
               body: output
             })
 
-      - name: Terraform Plan Status
-        run: exit 1

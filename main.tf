@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~>3.0"
     }
   }
@@ -15,12 +15,12 @@ terraform {
 }
 #proveedor de servicios 
 provider "aws" {
-  region     = "us-east-1"
+  region = "us-east-1"
 
 }
 #networking
 resource "aws_vpc" "lab_vpc" {
-  cidr_block =  "10.1.0.0/26"
+  cidr_block = "10.1.0.0/26"
   tags = {
     Name = "lab_vpc"
   }
@@ -66,12 +66,12 @@ resource "aws_route_table_association" "public_routetable" {
 }
 
 resource "aws_eip" "nat_eip" {
-  
+
 }
 resource "aws_nat_gateway" "lab_natgw" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.subnet_public.id
-  depends_on = [aws_internet_gateway.lab_internet_gw]
+  depends_on    = [aws_internet_gateway.lab_internet_gw]
 }
 resource "aws_route_table" "nat" {
   vpc_id = aws_vpc.lab_vpc.id
@@ -122,9 +122,9 @@ resource "aws_iam_instance_profile" "ec2-profile_public" {
 }
 #creacion Ec2 
 resource "aws_instance" "ec2_private" { #creacion instancia test con linux 2
-  ami           = "ami-0984f4b9e98be44bf"
-  instance_type = "t2.micro"
-  subnet_id = aws_subnet.subnet_private.id
+  ami                  = "ami-0984f4b9e98be44bf"
+  instance_type        = "t2.micro"
+  subnet_id            = aws_subnet.subnet_private.id
   iam_instance_profile = aws_iam_instance_profile.ec2-profile_private.name
   tags = {
     Name = "ec2_private"
@@ -134,8 +134,8 @@ resource "aws_instance" "ec2_private" { #creacion instancia test con linux 2
 resource "aws_instance" "ec2_public" { #creacion instancia test con linux 2
   ami           = "ami-0984f4b9e98be44bf"
   instance_type = "t2.micro"
-  
-  subnet_id = aws_subnet.subnet_public.id
+
+  subnet_id            = aws_subnet.subnet_public.id
   iam_instance_profile = aws_iam_instance_profile.ec2-profile_public.name
   tags = {
     Name = "ec2_public"

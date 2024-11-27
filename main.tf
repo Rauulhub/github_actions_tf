@@ -8,9 +8,9 @@ terraform {
 }
 terraform {
   backend "s3" {
-    bucket = "lab-tf-gh"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
+    bucket = "${{ secrets.AWS_BUCKET_NAME }}"
+    key    = "${{ secrets.AWS_BUCKET_KEY_NAME }}"
+    region = "${{ secrets.AWS_REGION }}"
   }
 }
 #proveedor de servicios 

@@ -8,6 +8,9 @@
   un rol con accesos dependiendo de la app... [guia para configurar OIDC en AWS] (https://aws.amazon.com/es/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/)
 
   el uso de Github actions se programo para que en diferentes fases:
+  
     fase 1: pull request se haga la verificacion del `terraform init`,  `terraform validate`
+    
     fase 2: push se valida el `terraform plan` y se despliega
+    
     fase 3: se crea para hacer el eliminado manual con `terraform destroy`
